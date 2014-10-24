@@ -9,6 +9,7 @@
 	<body>
 		<a href="addorupdate.jsp">New Order</a>
 		
+		<!-- do for all coffees -->
 		<a href="showorder.jsp?id=1">Order 1</a>
 		<form id="delete1" action="../CoffeeService/orders/1" method="DELETE">
 			<input type="submit" value="Cancel" />
@@ -20,5 +21,7 @@
 		<form id="options1" action="../CoffeeService/orders/1" method="OPTIONS">
 			<input type="submit" value="Options" />
 		</form>
+		
+		<!-- display payment if there is an associated one -->
 	</body>
 </html>
