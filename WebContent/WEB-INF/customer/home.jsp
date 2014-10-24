@@ -7,12 +7,16 @@
 		<title>Customer - Home</title>
 	</head>
 	<body>
+		<a href="addorupdate.jsp">New Order</a>
+		
 		<a href="showorder.jsp?id=1">Order 1</a>
 		<form id="delete1" action="../../CoffeeService/orders/1" method="DELETE">
 			<input type="submit" value="Cancel" />
 		</form>
-		<a href="updateorder.jsp?id=1">Update</a>
-		<a href="payorder.jsp?id=1">Update</a>
+		<a href="addorupdate.jsp?id=1">Update</a>
+		<form id="pay1" action="../../CoffeeService/payments/1" method="PUT">
+			<input type="submit" value="Pay" />
+		</form>
 		<form id="options1" action="../../CoffeeService/orders/1" method="OPTIONS">
 			<input type="submit" value="Options" />
 		</form>
