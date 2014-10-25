@@ -47,7 +47,7 @@ public class Controller extends HttpServlet {
 //		ClientResponse response1 = service.path("rest").path("orders").type(MediaType.APPLICATION_FORM_URLENCODED)
 //									.header("Auth", "ac123").post(ClientResponse.class, form);
 		if(request.getParameter("getOneOrder") != null){
-			Order o = service.path("rest").path("orders/1").accept(
+			Order o = service.path("rest").path("orders/"+request.getParameter("id")).accept(
 					MediaType.APPLICATION_XML).header("Auth", "abc123").get(Order.class);
 			request.setAttribute("id", o.getId());
 			request.setAttribute("coffeeType", o.getCoffeeType());
