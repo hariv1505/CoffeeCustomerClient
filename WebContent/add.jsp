@@ -6,17 +6,23 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Customer - New Order</title>
 	</head>
+	
 	<body>
 		<!-- change action based on id sent with GET request
 			 if there is none, then it is making a new order - must be a POST, with new ID -->
-		<form action="../orders/1" method="PUT" >
+		<h3>Enter order details and click on Add</h3>
+		<form method="POST" >
 			<!-- need to request all coffees here -->
-			<select id="coffeetype">
-				<option value="">None</option>
+			<select name="coffeetype">
+				<option value="cappuccino">Cappuccino</option>
+				<option value="long_black">Long Black</option>
+				<option value="latte">Latte</option>
+				<option value="espresso">Espresso</option>
 			</select>
-			<input type="text" id="cost" /> <!-- doesn't make sense for client to change this -->
-			<input type="text" id="additions" />
-			<input type="submit" value="Update" />
+			Cost: <input type="text" name="cost" /> <!-- doesn't make sense for client to change this -->
+			Addtions: <input type="text" name="additions" />
+			<input type="hidden" name="newOrder" />
+			<input type="submit" value="Add" />
 		</form> 
 	</body>
 </html>

@@ -9,16 +9,11 @@
 	</head>
 	<body>
 	<c:forEach var="order" items="${orders}">
-		<b>${order.id}</b><br>
-		${order.coffeeType}<br>
-		${order.additions}<br>
-		${order.cost}<br>
-		${order.detail}<br>
+		<i>Order Number</i>: <b>${order.id}</b><br>
+		<i>Coffee Typ</i>e: ${order.coffeeType}<br>
+		<i>Additions</i>: ${order.additions}<br>
+		<i>Cost</i>: ${order.cost}<br>
+		<i>Details</i>: ${order.detail}<br><br>
 	</c:forEach>
-		<%
-			//int id = 0;		//get this from "id" parameter of GET request
-			//ClientResponse response = service.path("rest").path("orders")
-			//.path(o.getId()).accept(MediaType.APPLICATION_XML).put(ClientResponse.class);	
-		%>
 	</body>
 </html>
