@@ -11,15 +11,15 @@
 		<!-- change action based on id sent with GET request
 			 if there is none, then it is making a new order - must be a POST, with new ID -->
 		<h3>Enter payment details and click on Submit</h3>
+		<h4>Order Number <b>${id}</b></h4>
 		<form method="POST" >
 			<!-- need to request all coffees here -->
 			<select name="paytype">
 				<option value="cash">Cash</option>
-				<option value="credit_card">Credit Card</option>
+				<option value="card">Card</option>
 			</select>
-			Cart Details: <input type="text" name="card_details" /> <!-- doesn't make sense for client to change this -->
+			Card Details: <input type="text" name="card_details" />
 			<input type="hidden" name="id" value="${id}"/>
-			<input type="hidden" name="amount" value="${cost}" />
 			<input type="hidden" name="payForOrder" />
 			<input type="submit" value="Pay" />
 		</form> 

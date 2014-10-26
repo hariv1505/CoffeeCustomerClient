@@ -11,6 +11,7 @@
 		<!-- change action based on id sent with GET request
 			 if there is none, then it is making a new order - must be a POST, with new ID -->
 		<h3>Enter order details and click on Update</h3>
+		<h4>Order Number <b>${id}</b></h4>
 		<form method="POST" >
 			<!-- need to request all coffees here -->
 			Coffee Type: <select name="coffeetype">

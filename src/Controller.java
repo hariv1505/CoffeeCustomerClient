@@ -36,14 +36,15 @@ public class Controller extends HttpServlet {
      */
     public Controller() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Error Handling e.g. paying when payment done etc.
+		// TODO OPTIONS couldn't figure out how to do it
 		List<Order> ords = service.path("rest").path("orders").accept(
 				MediaType.APPLICATION_XML).header("Auth", "abc123").get(new GenericType<List<Order>>(){});
 		
@@ -61,21 +62,20 @@ public class Controller extends HttpServlet {
 			service.path("rest").path("orders/"+request.getParameter("id")).header("Auth", "abc123").delete();
 			response.sendRedirect("confirmation?status=deleted");
 		}
+		
 		else if(request.getParameter("payForOrder") != null){
-			Order o;
-			if(request.getParameter("additions") != ""){
-				o = new Order(request.getParameter("id"), request.getParameter("coffeetype"),
-						request.getParameter("cost"),request.getParameter("additions"));
-			}
-			else{
-				 o = new Order(request.getParameter("id"), request.getParameter("coffeetype"),
-						request.getParameter("cost"));
-			}
-			ClientResponse resp = service.path("rest").path("orders")
-					.path(o.getId()).accept(MediaType.APPLICATION_XML).header("Auth","abc123")
-					.put(ClientResponse.class, o);
-			response.sendRedirect("confirmation?status=updated");
+			Order o = service.path("rest").path("orders/"+request.getParameter("id")).accept(
+					MediaType.APPLICATION_XML).header("Auth", "abc123").get(Order.class);
+			Form form = new Form();
+			form.add("id", request.getParameter("id"));
+			form.add("paytype", request.getParameter("paytype"));
+			form.add("amount", o.getCost());
+			form.add("carddetails", request.getParameter("card_details"));
+			ClientResponse resp = service.path("rest").path("payments").type(MediaType.APPLICATION_FORM_URLENCODED)
+						.header("Auth", "def456").post(ClientResponse.class, form);
+			response.sendRedirect("home?status=paid");
 		}
+		
 		else if(request.getParameter("updateOrder") != null){
 			Order o;
 			if(request.getParameter("additions") != ""){
@@ -89,8 +89,9 @@ public class Controller extends HttpServlet {
 			ClientResponse resp = service.path("rest").path("orders")
 					.path(o.getId()).accept(MediaType.APPLICATION_XML).header("Auth","abc123")
 					.put(ClientResponse.class, o);
-			response.sendRedirect("confirmation?status=updated");
+			response.sendRedirect("home?status=updated");
 		}
+		
 		else if(request.getParameter("newOrder") != null){
 			Random rand = new Random();
 			int randomNum = rand.nextInt((1000 - 1) + 1) + 1;
@@ -101,7 +102,7 @@ public class Controller extends HttpServlet {
 			form.add("additions", request.getParameter("additions"));
 			ClientResponse resp = service.path("rest").path("orders").type(MediaType.APPLICATION_FORM_URLENCODED)
 										.header("Auth", "abc123").post(ClientResponse.class, form);
-			response.sendRedirect("confirmation?status=added");
+			response.sendRedirect("home?status=added");
 		}
 		else if(request.getParameter("loadAddForm") != null){
 			request.getRequestDispatcher("add.jsp").forward(request, response);
@@ -112,11 +113,8 @@ public class Controller extends HttpServlet {
 		else if(request.getParameter("loadPayForm") != null){
 			request.getRequestDispatcher("pay.jsp").forward(request, response);
 		}
-		else if(request.getParameter("status") != null){
-			request.setAttribute("status", request.getParameter("status"));
-			request.getRequestDispatcher("confirmation.jsp").forward(request, response);
-		}
 		else{
+			request.setAttribute("status", request.getParameter("status"));
 			request.setAttribute("orders", ords);
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}

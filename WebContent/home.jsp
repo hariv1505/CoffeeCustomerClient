@@ -8,6 +8,7 @@
 		<title>Customer - Home</title>
 	</head>
 	<body>
+		<b><i>${status}</i></b><br>
 		<a href="addOrder?loadAddForm=true">New Order</a><br>
 		<a href="showOrder?getAllOrders=true">All Orders</a><br><br>
 		<!-- do for all coffees -->
