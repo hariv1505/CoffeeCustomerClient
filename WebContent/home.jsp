@@ -13,13 +13,13 @@
 		<a href="showOrder?getAllOrders=true">All Orders</a><br><br>
 		<!-- do for all coffees -->
 		<c:forEach var="order" items="${orders}">
-		<table>
+		<table style="width:25%">
 			<tr>
-				<td>Order:<b>${order.id}</b></td>
-				<td><a href="showOrder?id=${order.id}&getOneOrder=true">View</a></td>
-				<td><a href="deleteOrder?id=${order.id}&delete=true">Cancel</a></td>
-				<td><a href="updateOrder?id=${order.id}&loadUpdateForm=true">Update</a><td>
-				<td><a href="pay?id=${order.id}&loadPayForm=true">Pay</a><td>
+				<td align="center">Order:<b>${order.id}</b></td>
+				<td align="center"><a href="showOrder?id=${order.id}&getOneOrder=true">View</a></td>
+				<td align="center"><a href="deleteOrder?id=${order.id}&delete=true">Cancel</a></td>
+				<td align="center"><a href="updateOrder?id=${order.id}&loadUpdateForm=true">Update</a><td>
+				<td align="center"><a href="pay?id=${order.id}&loadPayForm=true">Pay</a><td>
 			</tr>
 		</table>
 		</c:forEach>
