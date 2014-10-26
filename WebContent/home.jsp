@@ -15,7 +15,7 @@
 		<c:forEach var="order" items="${orders}">
 		<table>
 			<tr>
-				<td>Order:<b>${order.id}<b></b></td>
+				<td>Order:<b>${order.id}</b></td>
 				<td><a href="showOrder?id=${order.id}&getOneOrder=true">View</a></td>
 				<td><a href="deleteOrder?id=${order.id}&delete=true">Cancel</a></td>
 				<td><a href="updateOrder?id=${order.id}&loadUpdateForm=true">Update</a><td>

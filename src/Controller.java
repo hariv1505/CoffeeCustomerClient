@@ -20,6 +20,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.representation.Form;
+
 /**
  * Servlet implementation class Controller
  */
@@ -66,13 +67,21 @@ public class Controller extends HttpServlet {
 		else if(request.getParameter("payForOrder") != null){
 			Order o = service.path("rest").path("orders/"+request.getParameter("id")).accept(
 					MediaType.APPLICATION_XML).header("Auth", "abc123").get(Order.class);
-			Form form = new Form();
-			form.add("id", request.getParameter("id"));
-			form.add("paytype", request.getParameter("paytype"));
-			form.add("amount", o.getCost());
-			form.add("carddetails", request.getParameter("card_details"));
-			ClientResponse resp = service.path("rest").path("payments").type(MediaType.APPLICATION_FORM_URLENCODED)
-						.header("Auth", "def456").post(ClientResponse.class, form);
+			
+			Payment p;
+
+			if (request.getParameter("paytype").equals("card")) {
+				p = new Payment(request.getParameter("id"), request.getParameter("paytype"),
+						o.getCost(),request.getParameter("card_details"));
+			}
+			else{
+				 p = new Payment(request.getParameter("id"), request.getParameter("paytype"),
+							o.getCost());
+			}
+			
+			ClientResponse resp = service.path("rest").path("payments").path(p.getId())
+					.accept(MediaType.APPLICATION_XML).header("Auth","def456")
+					.put(ClientResponse.class, p);
 			response.sendRedirect("home?status=paid");
 		}
 		
