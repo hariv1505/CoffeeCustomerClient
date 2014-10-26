@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import javax.ws.rs.core.UriBuilder;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -49,11 +51,15 @@ public class Controller extends HttpServlet {
 		if(request.getParameter("getOneOrder") != null){
 			Order o = service.path("rest").path("orders/"+request.getParameter("id")).accept(
 					MediaType.APPLICATION_XML).header("Auth", "abc123").get(Order.class);
-			request.setAttribute("id", o.getId());
-			request.setAttribute("coffeeType", o.getCoffeeType());
-			request.setAttribute("additions", o.getAdditions());
-			request.setAttribute("cost", o.getCost());
+			request.setAttribute("order", o);
+
 			request.getRequestDispatcher("showorder.jsp").forward(request, response);
+		}
+		else if(request.getParameter("getAllOrders") != null){
+			List<Order> ords = service.path("rest").path("orders").accept(
+					MediaType.APPLICATION_XML).header("Auth", "abc123").get(new GenericType<List<Order>>(){});
+			request.setAttribute("orders", ords);
+			request.getRequestDispatcher("showorders.jsp").forward(request, response);
 		}
 		else
 			request.getRequestDispatcher("home.jsp").forward(request, response);

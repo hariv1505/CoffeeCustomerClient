@@ -10,7 +10,8 @@
 		<a href="addorupdate.jsp">New Order</a>
 		
 		<!-- do for all coffees -->
-		<a href="showOrder?id=7&getOneOrder=true">Order 1</a>
+		<a href="showOrder?id=7&getOneOrder=true">Order 1</a><br>
+		<a href="showOrder?id=7&getAllOrders=true">All Orders</a>
 		<form id="delete1" action="../CoffeeService/orders/1" method="DELETE">
 			<input type="submit" value="Cancel" />
 		</form>
