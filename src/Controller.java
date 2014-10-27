@@ -62,7 +62,7 @@ public class Controller extends HttpServlet {
 		}
 		else if(request.getParameter("delete") != null){
 			service.path("rest").path("orders/"+request.getParameter("id")).header("Auth", "abc123").delete();
-			response.sendRedirect("confirmation?status=deleted");
+			response.sendRedirect("confirmation?status=deleted&id="+request.getParameter("id"));
 		}
 		
 		else if(request.getParameter("payForOrder") != null){
@@ -83,7 +83,7 @@ public class Controller extends HttpServlet {
 			ClientResponse resp = service.path("rest").path("payments").path(p.getId())
 					.accept(MediaType.APPLICATION_XML).header("Auth","def456")
 					.put(ClientResponse.class, p);
-			response.sendRedirect("home?status=paid");
+			response.sendRedirect("home?status=paid&id="+request.getParameter("id"));
 		}
 		
 		else if(request.getParameter("updateOrder") != null){
@@ -99,7 +99,7 @@ public class Controller extends HttpServlet {
 			ClientResponse resp = service.path("rest").path("orders")
 					.path(o.getId()).accept(MediaType.APPLICATION_XML).header("Auth","abc123")
 					.put(ClientResponse.class, o);
-			response.sendRedirect("home?status=updated");
+			response.sendRedirect("home?status=updated&id="+request.getParameter("id"));
 		}
 		
 		else if(request.getParameter("newOrder") != null){
@@ -112,7 +112,7 @@ public class Controller extends HttpServlet {
 			form.add("additions", request.getParameter("additions"));
 			ClientResponse resp = service.path("rest").path("orders").type(MediaType.APPLICATION_FORM_URLENCODED)
 										.header("Auth", "abc123").post(ClientResponse.class, form);
-			response.sendRedirect("home?status=added");
+			response.sendRedirect("home?status=added&id="+request.getParameter("id"));
 		}
 		else if(request.getParameter("loadAddForm") != null){
 			request.getRequestDispatcher("add.jsp").forward(request, response);
@@ -124,6 +124,7 @@ public class Controller extends HttpServlet {
 			request.getRequestDispatcher("pay.jsp").forward(request, response);
 		}
 		else{
+			request.setAttribute("id", request.getParameter("id"));
 			request.setAttribute("status", request.getParameter("status"));
 			request.setAttribute("orders", ords);
 			request.getRequestDispatcher("home.jsp").forward(request, response);
