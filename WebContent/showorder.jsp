@@ -11,7 +11,6 @@
 		<i>Coffee Type</i>: ${order.coffeeType}<br>
 		<i>Additions</i>: ${order.additions}<br>
 		<i>Cost</i>: ${order.cost}<br>
-		<i>Details</i>: ${order.detail}<br>
 		<%
 			//int id = 0;		//get this from "id" parameter of GET request
 			//ClientResponse response = service.path("rest").path("orders")

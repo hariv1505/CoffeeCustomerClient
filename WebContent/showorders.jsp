@@ -13,7 +13,6 @@
 		<i>Coffee Typ</i>e: ${order.coffeeType}<br>
 		<i>Additions</i>: ${order.additions}<br>
 		<i>Cost</i>: ${order.cost}<br>
-		<i>Details</i>: ${order.detail}<br><br>
 	</c:forEach>
 	</body>
 </html>
