@@ -27,7 +27,7 @@ import com.sun.jersey.api.representation.Form;
 @WebServlet(name="Controller",urlPatterns={"/","/home","/showOrder","/deleteOrder","/addOrder","/updateOrder","/pay","/confirmation"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//private List<Order> orders;
+	
 	private static String HOST = "localhost";
        
 	ClientConfig config = new DefaultClientConfig();
